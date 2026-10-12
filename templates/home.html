@@ -1,0 +1,43 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Смотри кино со своим семьей</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+    <header>
+        <h1>Кинотеатр</h1>
+        <nav><a href="{% url 'fidbek' %}">Отзывы</a></nav>
+    </header>
+    <div class="a1">
+        <h2>жанры</h2>
+        <div class="a2">
+            {% for zhanr in first %}
+                <span>{{ zhanr.type }}</span>
+            {% empty %}
+                <p>жанров пока нет</p>
+            {% endfor %}
+        </div>
+        <h2>Филмы</h2>
+        <div class="a3">
+            {% for kino in second %}
+                <div class="a4">
+                    {% if kino.image %}
+                        <img src="{{ kino.image.url }}">
+                    {% endif %}
+                    <div class="a5">
+                        <h3>{{ kino.name }}</h3>
+                        <p>{{ kino.time|date:"d.m.Y H:i" }}</p>
+                        <p class="a6">Цена: {{ kino.price }}</p>
+                    </div>
+                </div>
+            {% empty %}
+                <p>Филмов пока нет</p>
+            {% endfor %}
+        </div>
+    </div>
+</body>
+</html>

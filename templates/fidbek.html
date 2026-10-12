@@ -1,0 +1,30 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Отзивы</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+    <header>
+        <h1>Отзивы</h1>
+        <nav><a href="{% url 'show' %}">На главную</a></nav>
+    </header>
+    <div class="b1">
+        <form method="post" class="b2">
+            {% csrf_token %}
+            <textarea name="otziv" maxlength="500" placeholder="Напишите отзыв..." required></textarea>
+            <button type="submit">Отправить</button>
+        </form>
+
+        <h2>Все отзивы</h2>
+        {% for f in otzivs %}
+            <div class="b3">{{ f.otziv }}</div>
+        {% empty %}
+            <p>Отзывов пока нет</p>
+        {% endfor %}
+    </div>
+</body>
+</html>
