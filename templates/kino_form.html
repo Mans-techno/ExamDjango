@@ -1,0 +1,34 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% if kino %}Изменить фильм{% else %}Добавить фильм{% endif %}</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+    <header>
+        <h1>{% if kino %}Изменить фильм{% else %}Добавить фильм{% endif %}</h1>
+        <nav><a href="{% url 'kino_list' %}">Назад к фильмам</a></nav>
+    </header>
+    <div class="b1">
+        <form method="post" enctype="multipart/form-data" class="b2 c4">
+            {% csrf_token %}
+            <label>Название
+                <input type="text" name="name" maxlength="50" value="{{ kino.name|default:'' }}" required>
+            </label>
+            <label>Цена
+                <input type="text" name="price" value="{{ kino.price|default:'' }}" required>
+            </label>
+            <label>Постер
+                {% if kino.image %}
+                    <img src="{{ kino.image.url }}" class="c5">
+                {% endif %}
+                <input type="file" name="image" accept="image/*" {% if not kino %}required{% endif %}>
+            </label>
+            <button type="submit">{% if kino %}Сохранить{% else %}Добавить{% endif %}</button>
+        </form>
+    </div>
+</body>
+</html>

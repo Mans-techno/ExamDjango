@@ -1,0 +1,39 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Управление фильмами</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+    <header>
+        <h1>Управление фильмами</h1>
+        <nav><a href="{% url 'show' %}">На главную</a></nav>
+    </header>
+    <div class="a1">
+        <a class="c1" href="{% url 'kino_create' %}">+ Добавить фильм</a>
+        <div class="a3">
+            {% for kino in kinos %}
+                <div class="a4">
+                    {% if kino.image %}
+                        <img src="{{ kino.image.url }}">
+                    {% endif %}
+                    <div class="a5">
+                        <h3>{{ kino.name }}</h3>
+                        <p>{{ kino.time|date:"d.m.Y H:i" }}</p>
+                        <p class="a6">Цена: {{ kino.price }}</p>
+                        <div class="c2">
+                            <a class="c1" href="{% url 'kino_update' kino.id %}">Изменить</a>
+                            <a class="c1 c3" href="{% url 'kino_delete' kino.id %}">Удалить</a>
+                        </div>
+                    </div>
+                </div>
+            {% empty %}
+                <p>Филмов пока нет</p>
+            {% endfor %}
+        </div>
+    </div>
+</body>
+</html>
